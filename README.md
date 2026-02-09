@@ -1,59 +1,174 @@
-# JobFinder
+# JobFinder - Application de Recherche d'Emplois
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.3.
+[![Angular](https://img.shields.io/badge/Angular-21-red?logo=angular)](https://angular.dev/)
+[![NgRx](https://img.shields.io/badge/NgRx-State%20Management-purple)](https://ngrx.io/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Styling-blue?logo=tailwindcss)](https://tailwindcss.com/)
 
-## Development server
+## 📋 Description
 
-To start a local development server, run:
+JobFinder est une Single Page Application (SPA) de recherche d'emplois développée avec Angular 21. L'application permet aux chercheurs d'emploi de consulter des offres internationales via l'API Adzuna, sauvegarder leurs favoris et suivre leurs candidatures.
 
-```bash
-ng serve
+## ✨ Fonctionnalités
+
+### 🔐 Authentification
+- Inscription avec validation (nom, prénom, email, mot de passe)
+- Connexion avec persistance via localStorage
+- Gestion du profil (modification, suppression du compte)
+- Protection des routes avec authGuard
+
+### 🔍 Recherche d'Emplois
+- Recherche par mots-clés (titre du poste)
+- Filtrage par localisation
+- Pagination (10 résultats par page)
+- Tri par date de publication (plus récent en premier)
+
+### ❤️ Gestion des Favoris (NgRx)
+- Ajout/suppression de favoris avec gestion d'état NgRx
+- Indicateur visuel pour les offres favorites
+- Page dédiée aux favoris
+
+### 📊 Suivi des Candidatures
+- Ajout d'offres au suivi
+- Gestion des statuts (en_attente, accepté, refusé)
+- Notes personnelles pour chaque candidature
+- Page dédiée au suivi
+
+## 🛠️ Technologies
+
+| Catégorie | Technologies |
+|-----------|-------------|
+| Frontend | Angular 21 (Standalone Components) |
+| State Management | NgRx (Store, Effects, Selectors) |
+| Styling | TailwindCSS (CDN) |
+| Forms | Reactive Forms |
+| Backend (Simulé) | JSON Server |
+| Containerisation | Docker & Docker Compose |
+
+## 📁 Structure du Projet
+
+```
+src/app/
+├── core/
+│   ├── guards/
+│   │   └── auth.guard.ts
+│   ├── interceptors/
+│   │   └── error.interceptor.ts
+│   ├── models/
+│   │   ├── interactions.model.ts
+│   │   ├── job-offer.model.ts
+│   │   └── user.model.ts
+│   └── services/
+│       ├── auth.service.ts
+│       └── job.service.ts
+├── features/
+│   ├── auth/
+│   │   ├── login.component.ts
+│   │   ├── profile.component.ts
+│   │   └── register.component.ts
+│   ├── jobs/
+│   │   └── components/
+│   │       ├── job-card.component.ts
+│   │       └── search-page.component.ts
+│   └── user/
+│       └── components/
+│           ├── applications-page.component.ts
+│           └── favorites-page.component.ts
+├── shared/
+│   └── components/
+│       ├── footer.component.ts
+│       └── navbar.component.ts
+├── state/
+│   └── favorites/
+│       ├── favorites.actions.ts
+│       ├── favorites.effects.ts
+│       ├── favorites.reducer.ts
+│       └── favorites.selectors.ts
+├── app.config.ts
+├── app.routes.ts
+└── app.ts
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Installation et Lancement
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Avec Docker (Recommandé)
 
 ```bash
-ng generate component component-name
+# Cloner le projet
+git clone <url-du-repo>
+cd JobKeyn
+
+# Lancer avec Docker Compose
+docker compose up -d
+
+# Accéder à l'application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:3001
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Sans Docker
 
 ```bash
-ng generate --help
+# Installer les dépendances
+npm install
+
+# Lancer le backend JSON Server
+npm run backend
+
+# Dans un autre terminal, lancer le frontend
+npm run start
+
+# Accéder à l'application
+# Frontend: http://localhost:4200
+# Backend API: http://localhost:3000
 ```
 
-## Building
+## 📊 API Utilisée
 
-To build the project run:
+L'application consomme l'API Adzuna via le proxy fourni :
+- **Documentation** : https://job-finder-api-nine.vercel.app/
 
-```bash
-ng build
+## 🔧 Configuration
+
+### db.json (JSON Server)
+```json
+{
+  "users": [],
+  "favoritesOffers": [],
+  "applications": []
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Variables d'environnement
+Aucune configuration supplémentaire n'est nécessaire.
 
-## Running unit tests
+## 📝 Choix Techniques
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Pourquoi localStorage plutôt que sessionStorage ?
+Le **localStorage** a été choisi pour la persistance de l'authentification car il permet à l'utilisateur de rester connecté même après la fermeture du navigateur, améliorant ainsi l'expérience utilisateur.
 
-```bash
-ng test
-```
+### Pourquoi NgRx pour les favoris ?
+Le cahier de charge exige l'utilisation de NgRx. La gestion des favoris est un cas d'usage idéal car :
+- État partagé entre plusieurs composants (job-card, favorites-page)
+- Actions asynchrones avec effets (API calls)
+- Besoin de garder l'état synchronisé
 
-## Running end-to-end tests
+### Pourquoi TailwindCSS via CDN ?
+Pour garantir une intégration rapide et fiable avec Angular 21, évitant les problèmes de configuration PostCSS.
 
-For end-to-end (e2e) testing, run:
+## 🧪 Tests
 
-```bash
-ng e2e
-```
+Pour tester l'application :
+1. **Inscription** : Créer un compte avec email/mot de passe
+2. **Connexion** : Se connecter avec les identifiants créés
+3. **Recherche** : Chercher des offres (ex: "developer" à "London")
+4. **Favoris** : Cliquer sur le cœur pour ajouter aux favoris
+5. **Suivi** : Cliquer sur "Suivre" pour ajouter au suivi
+6. **Gestion** : Modifier le statut ou ajouter des notes
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 👤 Auteur
 
-## Additional Resources
+Projet réalisé dans le cadre de la Soutenance Croisée 2025/2026.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📄 Licence
+
+Ce projet est à usage éducatif uniquement.
