@@ -1,0 +1,26 @@
+services:
+  frontend:
+    build: .
+    container_name: job-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - job-network
+
+  backend:
+    image: node:20-alpine
+    container_name: job-backend
+    working_dir: /data
+    volumes:
+      - ./db.json:/data/db.json
+    command: sh -c "npm install -g json-server && json-server --watch db.json --port 3000 --host 0.0.0.0"
+    ports:
+      - "3001:3000"
+    networks:
+      - job-network
+
+networks:
+  job-network:
+    driver: bridge
