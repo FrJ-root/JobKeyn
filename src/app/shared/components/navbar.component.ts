@@ -25,7 +25,15 @@ import { AuthService } from '../../core/services/auth.service';
             <div class="hidden md:flex items-center gap-1">
               <a routerLink="/" routerLinkActive="text-indigo-600 bg-indigo-50" [routerLinkActiveOptions]="{exact: true}"
                  class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">
-                Rechercher
+                Offres
+              </a>
+              <a routerLink="/entreprises" routerLinkActive="text-indigo-600 bg-indigo-50"
+                 class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">
+                Entreprises
+              </a>
+              <a routerLink="/conseils" routerLinkActive="text-indigo-600 bg-indigo-50"
+                 class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">
+                Conseils
               </a>
               <ng-container *ngIf="authService.isAuthenticated">
                 <a routerLink="/favorites" routerLinkActive="text-indigo-600 bg-indigo-50"
@@ -34,7 +42,7 @@ import { AuthService } from '../../core/services/auth.service';
                 </a>
                 <a routerLink="/applications" routerLinkActive="text-indigo-600 bg-indigo-50"
                    class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">
-                  Candidatures
+                  Suivi
                 </a>
               </ng-container>
             </div>
@@ -86,7 +94,15 @@ import { AuthService } from '../../core/services/auth.service';
         <div class="px-4 py-4 space-y-2">
           <a routerLink="/" (click)="closeMobileMenu()" routerLinkActive="text-indigo-600 bg-indigo-50" [routerLinkActiveOptions]="{exact: true}"
              class="block px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">
-            Rechercher
+            Offres
+          </a>
+          <a routerLink="/entreprises" (click)="closeMobileMenu()" routerLinkActive="text-indigo-600 bg-indigo-50"
+             class="block px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">
+            Entreprises
+          </a>
+          <a routerLink="/conseils" (click)="closeMobileMenu()" routerLinkActive="text-indigo-600 bg-indigo-50"
+             class="block px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">
+            Conseils
           </a>
           <ng-container *ngIf="authService.isAuthenticated">
             <a routerLink="/favorites" (click)="closeMobileMenu()" routerLinkActive="text-indigo-600 bg-indigo-50"
@@ -95,7 +111,7 @@ import { AuthService } from '../../core/services/auth.service';
             </a>
             <a routerLink="/applications" (click)="closeMobileMenu()" routerLinkActive="text-indigo-600 bg-indigo-50"
                class="block px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">
-              Candidatures
+              Suivi
             </a>
             <a routerLink="/profile" (click)="closeMobileMenu()" routerLinkActive="text-indigo-600 bg-indigo-50"
                class="block px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-all">

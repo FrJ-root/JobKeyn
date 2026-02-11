@@ -7,6 +7,14 @@ export const routes: Routes = [
         loadComponent: () => import('./features/jobs/components/search-page.component').then(c => c.SearchPageComponent)
     },
     {
+        path: 'entreprises',
+        loadComponent: () => import('./features/pages/entreprises-page.component').then(c => c.EntreprisesPageComponent)
+    },
+    {
+        path: 'conseils',
+        loadComponent: () => import('./features/pages/conseils-page.component').then(c => c.ConseilsPageComponent)
+    },
+    {
         path: 'auth',
         children: [
             {

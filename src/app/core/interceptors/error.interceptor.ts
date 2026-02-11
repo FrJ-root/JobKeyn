@@ -13,7 +13,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                 // Server-side error
                 switch (error.status) {
                     case 0:
-                        errorMessage = 'Impossible de contacter le serveur. Vérifiez votre connexion.';
+                        errorMessage = 'Impossible de contacter le serveur. Vérifiez votre connexion ou l\'API est temporairement indisponible.';
                         break;
                     case 400:
                         errorMessage = 'Requête invalide. Veuillez vérifier les données saisies.';
