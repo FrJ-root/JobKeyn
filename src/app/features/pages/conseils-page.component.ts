@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-conseils-page',
-    standalone: true,
-    imports: [CommonModule, RouterLink],
-    template: `
+  selector: 'app-conseils-page',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div class="mb-12 text-center">
         <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
@@ -33,7 +33,7 @@ import { RouterLink } from '@angular/router';
 
       <!-- Stats section -->
       <div class="mt-16 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-3xl p-10 text-center text-white">
-        <h2 class="text-3xl font-bold mb-8">JobFinder en chiffres</h2>
+        <h2 class="text-3xl font-bold mb-8">JobKeyn en chiffres</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div *ngFor="let stat of stats">
             <div class="text-4xl font-extrabold">{{ stat.value }}</div>
@@ -52,43 +52,43 @@ import { RouterLink } from '@angular/router';
   `
 })
 export class ConseilsPageComponent {
-    tips = [
-        {
-            icon: '📝', bgColor: '#eff6ff',
-            title: 'Optimisez votre CV',
-            content: 'Adaptez votre CV à chaque offre. Utilisez les mots-clés du poste et quantifiez vos réalisations avec des chiffres concrets.'
-        },
-        {
-            icon: '🔍', bgColor: '#f0fdf4',
-            title: 'Utilisez les bons mots-clés',
-            content: 'Recherchez par titre de poste précis. Les recruteurs utilisent des termes spécifiques comme "Developer", "Engineer" ou "Manager".'
-        },
-        {
-            icon: '🌍', bgColor: '#fef3c7',
-            title: 'Élargissez votre zone géographique',
-            content: 'Le télétravail ouvre de nouvelles opportunités. Essayez "Remote" comme localisation pour accéder à des offres internationales.'
-        },
-        {
-            icon: '⭐', bgColor: '#fdf2f8',
-            title: 'Sauvegardez vos favoris',
-            content: 'Créez un compte pour sauvegarder les offres qui vous intéressent et suivre l\'avancement de vos candidatures.'
-        },
-        {
-            icon: '📊', bgColor: '#f5f3ff',
-            title: 'Suivez vos candidatures',
-            content: 'Utilisez le suivi de candidature pour organiser vos démarches : en attente, accepté ou refusé. Ajoutez des notes pour chaque candidature.'
-        },
-        {
-            icon: '🚀', bgColor: '#ecfdf5',
-            title: 'Soyez réactif',
-            content: 'Les meilleures offres partent vite. Consultez régulièrement les nouvelles offres et postulez dès que possible.'
-        }
-    ];
+  tips = [
+    {
+      icon: '📝', bgColor: '#eff6ff',
+      title: 'Optimisez votre CV',
+      content: 'Adaptez votre CV à chaque offre. Utilisez les mots-clés du poste et quantifiez vos réalisations avec des chiffres concrets.'
+    },
+    {
+      icon: '🔍', bgColor: '#f0fdf4',
+      title: 'Utilisez les bons mots-clés',
+      content: 'Recherchez par titre de poste précis. Les recruteurs utilisent des termes spécifiques comme "Developer", "Engineer" ou "Manager".'
+    },
+    {
+      icon: '🌍', bgColor: '#fef3c7',
+      title: 'Élargissez votre zone géographique',
+      content: 'Le télétravail ouvre de nouvelles opportunités. Essayez "Remote" comme localisation pour accéder à des offres internationales.'
+    },
+    {
+      icon: '⭐', bgColor: '#fdf2f8',
+      title: 'Sauvegardez vos favoris',
+      content: 'Créez un compte pour sauvegarder les offres qui vous intéressent et suivre l\'avancement de vos candidatures.'
+    },
+    {
+      icon: '📊', bgColor: '#f5f3ff',
+      title: 'Suivez vos candidatures',
+      content: 'Utilisez le suivi de candidature pour organiser vos démarches : en attente, accepté ou refusé. Ajoutez des notes pour chaque candidature.'
+    },
+    {
+      icon: '🚀', bgColor: '#ecfdf5',
+      title: 'Soyez réactif',
+      content: 'Les meilleures offres partent vite. Consultez régulièrement les nouvelles offres et postulez dès que possible.'
+    }
+  ];
 
-    stats = [
-        { value: '4', label: 'APIs connectées' },
-        { value: '500+', label: 'Offres quotidiennes' },
-        { value: '16+', label: 'Pays couverts' },
-        { value: '100%', label: 'Gratuit' }
-    ];
+  stats = [
+    { value: '4', label: 'APIs connectées' },
+    { value: '500+', label: 'Offres quotidiennes' },
+    { value: '16+', label: 'Pays couverts' },
+    { value: '100%', label: 'Gratuit' }
+  ];
 }

@@ -12,13 +12,15 @@ import { AuthService } from '../../core/services/auth.service';
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
           <div class="flex items-center gap-8">
-            <a routerLink="/" class="flex items-center gap-2 group">
-              <div class="bg-indigo-600 p-2 rounded-lg group-hover:bg-indigo-700 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <a routerLink="/" class="flex items-center gap-2.5 group">
+              <div class="bg-gradient-to-br from-indigo-600 to-violet-600 p-2 rounded-xl group-hover:from-indigo-700 group-hover:to-violet-700 transition-all shadow-md shadow-indigo-200/50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                 </svg>
               </div>
-              <span class="text-xl font-bold text-gray-900 tracking-tight">JobFinder</span>
+              <span class="text-xl font-extrabold tracking-tight">
+                <span class="text-gray-900">Job</span><span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Keyn</span>
+              </span>
             </a>
             
             <!-- Desktop menu -->

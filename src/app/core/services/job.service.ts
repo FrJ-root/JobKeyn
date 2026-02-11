@@ -54,10 +54,18 @@ export class JobService {
                 console.log(`[JobService] Fetched ${uniqueJobs.length} unique jobs total`);
 
                 // Filter by title keyword (strict requirement from cahier de charge)
-                const filtered = uniqueJobs.filter(job =>
+                let filtered = uniqueJobs.filter(job =>
                     job.title.toLowerCase().includes(query.toLowerCase())
                 );
                 console.log(`[JobService] ${filtered.length} jobs match title "${query}"`);
+
+                // Filter by location if provided
+                if (location && location.trim()) {
+                    filtered = filtered.filter(job =>
+                        job.location.display_name.toLowerCase().includes(location.toLowerCase())
+                    );
+                    console.log(`[JobService] ${filtered.length} jobs match location "${location}"`);
+                }
 
                 // Sort by date descending
                 filtered.sort((a, b) =>
@@ -82,17 +90,19 @@ export class JobService {
     }
 
     /**
-     * Get latest jobs for initial page load (no keyword filter).
-     * Shows a mix of jobs from all sources.
+     * Fetch ALL jobs from all APIs at once and return as a flat array.
+     * Used by the search page to cache locally for real-time filtering.
      */
-    getLatestJobs(page: number = 1): Observable<JobSearchResponse> {
-        console.log(`[JobService] Loading latest jobs (page ${page})`);
+    getAllJobs(): Observable<JobOffer[]> {
+        console.log('[JobService] Fetching all jobs for local cache...');
 
         const apiCalls: Observable<JobOffer[]>[] = [
-            this.fetchArbeitnow(page),
-            this.fetchArbeitnow(page + 1),
-            this.fetchMuse(page - 1),
-            this.fetchMuse(page),
+            this.fetchArbeitnow(1),
+            this.fetchArbeitnow(2),
+            this.fetchArbeitnow(3),
+            this.fetchMuse(0),
+            this.fetchMuse(1),
+            this.fetchMuse(2),
         ];
 
         return forkJoin(apiCalls).pipe(
@@ -101,25 +111,13 @@ export class JobService {
                 const seen = new Map<string | number, JobOffer>();
                 allJobs.forEach(job => seen.set(job.id, job));
                 const uniqueJobs = Array.from(seen.values());
-
-                console.log(`[JobService] Latest: ${uniqueJobs.length} unique jobs`);
-
-                // Sort by date descending
-                uniqueJobs.sort((a, b) =>
-                    new Date(b.created).getTime() - new Date(a.created).getTime()
-                );
-
-                // Paginate
-                const perPage = 10;
-                const start = (page - 1) * perPage;
-                const paginated = uniqueJobs.slice(start, start + perPage);
-
-                return {
-                    results: paginated,
-                    count: uniqueJobs.length
-                };
+                console.log(`[JobService] Cached ${uniqueJobs.length} unique jobs`);
+                return uniqueJobs;
             }),
-            catchError(() => of({ results: [], count: 0 }))
+            catchError(error => {
+                console.error('[JobService] Failed to load jobs:', error);
+                return of([]);
+            })
         );
     }
 

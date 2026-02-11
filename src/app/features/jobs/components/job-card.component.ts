@@ -1,6 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
+import { take } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { JobOffer } from '../../../core/models/job-offer.model';
 import { FavoriteOffer, JobApplication } from '../../../core/models/interactions.model';
@@ -121,15 +122,15 @@ export class JobCardComponent {
     if (!user?.id) return;
 
     if (this.isFavorited) {
-      // Find and remove - the store has all favorites loaded
-      this.store.select(selectFavoriteByOfferId(this.job.id)).subscribe();
-      // We need the actual favorite id from the store
-      this.store.select('favorites').subscribe((state: any) => {
-        const fav = state.favorites.find((f: FavoriteOffer) => f.offerId === this.job.id);
+      // Read the store synchronously to find the favorite's id
+      this.store.select('favorites').pipe(take(1)).subscribe((state: any) => {
+        const fav = state.favorites.find((f: FavoriteOffer) =>
+          String(f.offerId) === String(this.job.id)
+        );
         if (fav?.id) {
           this.store.dispatch(FavoritesActions.removeFavorite({ id: fav.id }));
         }
-      }).unsubscribe();
+      });
     } else {
       const favorite: FavoriteOffer = {
         userId: user.id,
